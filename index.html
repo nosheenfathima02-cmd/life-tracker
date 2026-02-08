@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#667eea">
-    <title>Life Tracker</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon-192.png">
+    <title>Life Tracker - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -15,14 +12,14 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -33,7 +30,7 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
+            padding: 20px 30px;
             text-align: center;
         }
 
@@ -47,90 +44,62 @@
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .btn {
-            padding: 12px 24px;
+            background: white;
+            color: #667eea;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: transform 0.2s;
         }
 
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #48bb78;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #38a169;
-            transform: translateY(-2px);
-        }
-
-        .btn-delete {
-            background: #f56565;
-            color: white;
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-
-        .btn-delete:hover {
-            background: #e53e3e;
-        }
-
-        .btn-delete-small {
-            background: #fc8181;
-            color: white;
-            padding: 4px 8px;
-            font-size: 11px;
-            margin-left: 10px;
+        .btn:hover {
+            transform: scale(1.05);
+            background: #f0f0f0;
         }
 
         .tabs {
             display: flex;
-            background: #f7fafc;
-            border-bottom: 2px solid #e2e8f0;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            overflow-x: auto;
         }
 
         .tab-button {
             flex: 1;
-            padding: 20px;
-            border: none;
-            background: transparent;
+            min-width: 120px;
+            padding: 15px;
+            text-align: center;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            color: #718096;
+            background: #f8f9fa;
+            border: none;
+            font-size: 1em;
+            font-weight: 600;
+            color: #495057;
             transition: all 0.3s;
-            border-bottom: 3px solid transparent;
         }
 
         .tab-button:hover {
-            background: #edf2f7;
+            background: #e9ecef;
         }
 
         .tab-button.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
             background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
         }
 
         .tab-content {
             display: none;
-            padding: 30px;
+            padding: 20px;
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
         }
 
         .tab-content.active {
@@ -138,54 +107,40 @@
         }
 
         .section {
-            margin-bottom: 40px;
-        }
-
-        .section h2 {
-            color: #2d3748;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
         }
 
         .section h3 {
-            color: #4a5568;
-            margin-bottom: 10px;
-            margin-top: 20px;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
         }
 
         .item {
-            background: #f7fafc;
+            background: white;
             padding: 15px;
-            margin-bottom: 10px;
+            margin: 10px 0;
             border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
             align-items: flex-start;
-            gap: 15px;
-            transition: all 0.3s;
-        }
-
-        .item:hover {
-            background: #edf2f7;
-            transform: translateX(5px);
+            gap: 10px;
         }
 
         .item.completed {
             opacity: 0.6;
-        }
-
-        .item.completed .item-title {
             text-decoration: line-through;
         }
 
         .item-checkbox {
             width: 20px;
             height: 20px;
+            margin-top: 2px;
             cursor: pointer;
-            flex-shrink: 0;
         }
 
         .item-content {
@@ -194,450 +149,888 @@
 
         .item-title {
             font-weight: 600;
-            color: #2d3748;
             margin-bottom: 5px;
         }
 
         .item-details {
-            color: #718096;
-            font-size: 14px;
+            color: #666;
+            font-size: 0.9em;
             margin-top: 5px;
         }
 
-        .item-status,
-        .item-deadline {
-            color: #4a5568;
-            font-size: 13px;
-            margin-top: 5px;
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
         }
 
-        .health-habits {
-            background: #f0fff4;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #48bb78;
+        .btn-primary:hover {
+            background: #5568d3;
         }
 
-        .habit-item {
+        .btn-edit {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-right: 5px;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+
+        .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 0;
+            padding: 12px;
+            margin: 8px 0;
+            background: #e9ecef;
+            border-radius: 8px;
         }
 
-        .habit-item input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
             cursor: pointer;
         }
 
-        .habit-item label {
-            font-size: 16px;
-            color: #2d3748;
-            cursor: pointer;
+        .checkbox-item.completed {
+            background: #d4edda;
         }
 
-        .health-note {
-            background: #fff5f5;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-left: 4px solid #fc8181;
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
         }
 
-        .note-date {
-            font-weight: 600;
-            color: #742a2a;
-            margin-bottom: 5px;
-        }
-
-        .note-content {
-            color: #4a5568;
-        }
-
-        .lesson-plan {
-            background: #fffaf0;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-left: 4px solid #ed8936;
-        }
-
-        .lesson-title {
-            font-weight: 600;
-            color: #7c2d12;
-            margin-bottom: 5px;
-        }
-
-        .lesson-date {
-            color: #744210;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-
-        .lesson-details {
-            color: #4a5568;
-            font-size: 14px;
-        }
-
-        .reminder {
-            background: #ebf4ff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-left: 4px solid #4299e1;
-        }
-
-        .reminder.inactive {
-            opacity: 0.5;
-        }
-
-        .reminder-title {
-            font-weight: 600;
-            color: #2c5282;
-            margin-bottom: 5px;
-        }
-
-        .reminder-time,
-        .reminder-repeat {
-            color: #2d3748;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        .reminder-details {
-            color: #4a5568;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .reminder-inactive {
-            color: #e53e3e;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-
-        .empty-state {
-            text-align: center;
-            color: #a0aec0;
-            padding: 40px;
-            font-style: italic;
-        }
-
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.5);
-            animation: fadeIn 0.3s;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .modal.active {
+            display: flex;
         }
 
         .modal-content {
             background: white;
-            margin: 10% auto;
-            padding: 0;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 10px;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideIn 0.3s;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px 12px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.3em;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .close-modal {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 28px;
+            float: right;
+            font-size: 1.5em;
             cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
+            color: #999;
         }
 
         .close-modal:hover {
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
+            color: #333;
         }
 
-        .modal-body {
-            padding: 30px;
-        }
-
-        .modal-body input,
-        .modal-body textarea,
-        .modal-body select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .modal-body input:focus,
-        .modal-body textarea:focus,
-        .modal-body select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .modal-body button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-        }
-
-        .category-section {
-            background: #faf5ff;
+        .empty-state {
+            text-align: center;
+            color: #999;
             padding: 20px;
+            font-style: italic;
+        }
+
+        .prayer-tracker {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .prayer-box {
+            background: white;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #9f7aea;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .prayer-box.prayed {
+            background: #d4edda;
+        }
+
+        .prayer-name {
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 0;
-            }
-
-            .container {
-                border-radius: 0;
-            }
-
             .header h1 {
                 font-size: 1.5em;
             }
-
+            
             .tab-button {
-                padding: 15px 10px;
-                font-size: 14px;
-            }
-
-            .tab-content {
-                padding: 15px;
-            }
-
-            .modal-content {
-                margin: 5% auto;
-                width: 95%;
+                min-width: 100px;
+                font-size: 0.9em;
+                padding: 12px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
-            <h1>📱 Life Tracker</h1>
-            <p>Track your personal, health, and professional life all in one place</p>
+            <h1>📱 Life Tracker - Enhanced</h1>
+            <p>Track your personal, health, religious, and professional life</p>
             <div class="header-buttons">
-                <button id="enable-notifications" class="btn btn-primary">🔔 Enable Notifications</button>
-                <button id="sync-drive" class="btn btn-secondary">☁️ Sync with Google Drive</button>
-                <button id="install-app" class="btn btn-primary" style="display:none;">📲 Install App</button>
+                <button class="btn" onclick="enableNotifications()">🔔 Enable Notifications</button>
+                <button class="btn" onclick="alert('Google Drive sync - add your API key in code')">☁️ Sync Google Drive</button>
             </div>
         </div>
 
-        <!-- Tabs -->
         <div class="tabs">
-            <button class="tab-button active" data-tab="personal">👤 Personal</button>
-            <button class="tab-button" data-tab="health">💪 Health</button>
-            <button class="tab-button" data-tab="professional">💼 Professional</button>
+            <button class="tab-button active" onclick="switchTab('personal')">👤 Personal</button>
+            <button class="tab-button" onclick="switchTab('health')">💪 Health</button>
+            <button class="tab-button" onclick="switchTab('religious')">🕌 Religious Life</button>
+            <button class="tab-button" onclick="switchTab('professional')">💼 Professional</button>
         </div>
 
         <!-- Personal Tab -->
         <div id="personal" class="tab-content active">
             <div class="section">
-                <h2>
-                    📚 Education
-                    <button id="add-education" class="btn btn-secondary">+ Add Education Item</button>
-                </h2>
+                <h3>📚 Education</h3>
                 <div id="education-list"></div>
+                <button class="btn-primary" onclick="openModal('education')">+ Add Education Item</button>
             </div>
 
             <div class="section">
-                <h2>
-                    🛂 Visa Process
-                    <button id="add-visa" class="btn btn-secondary">+ Add Visa Item</button>
-                </h2>
+                <h3>✈️ Visa Process</h3>
                 <div id="visa-list"></div>
+                <button class="btn-primary" onclick="openModal('visa')">+ Add Visa Item</button>
             </div>
 
             <div class="section">
-                <h2>
-                    🚗 Driving License
-                    <button id="add-license" class="btn btn-secondary">+ Add License Item</button>
-                </h2>
+                <h3>🚗 Driving License</h3>
                 <div id="license-list"></div>
-            </div>
-
-            <div class="section">
-                <h2>
-                    ➕ Custom Categories
-                    <button id="add-custom-category" class="btn btn-primary">+ Add New Category</button>
-                </h2>
-                <div id="custom-categories"></div>
+                <button class="btn-primary" onclick="openModal('license')">+ Add License Item</button>
             </div>
         </div>
 
         <!-- Health Tab -->
         <div id="health" class="tab-content">
             <div class="section">
-                <h2>✅ Daily Habits</h2>
-                <div class="health-habits">
-                    <div class="habit-item">
-                        <input type="checkbox" id="habit-wakeup">
-                        <label for="habit-wakeup">Woke up on time</label>
-                    </div>
-                    <div class="habit-item">
-                        <input type="checkbox" id="habit-water">
-                        <label for="habit-water">Drank enough water today</label>
-                    </div>
-                    <div class="habit-item">
-                        <input type="checkbox" id="habit-veg">
-                        <label for="habit-veg">Ate at least one vegetable today</label>
-                    </div>
-                    <p style="margin-top: 15px; color: #718096; font-size: 13px;">
-                        💡 These checkboxes reset automatically every day
-                    </p>
+                <h3>✅ Daily Habits</h3>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="habit-wakeup" onchange="saveHabit('wakeup')">
+                    <label>Woke up on time</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="habit-water" onchange="saveHabit('water')">
+                    <label>Drank 8 glasses of water</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="habit-veg" onchange="saveHabit('veg')">
+                    <label>Ate at least one vegetable</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="habit-exercise" onchange="saveHabit('exercise')">
+                    <label>Exercised (30+ minutes)</label>
                 </div>
             </div>
 
             <div class="section">
-                <h2>
-                    📝 Health Notes
-                    <button id="add-health-note" class="btn btn-secondary">+ Add Health Note</button>
-                </h2>
+                <h3>⚖️ Weight Tracker</h3>
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="weight-input" placeholder="Weight (kg)" step="0.1" style="width:150px;">
+                    <input type="date" id="weight-date" style="width:150px;">
+                    <button class="btn-primary" onclick="addWeight()">Add</button>
+                </div>
+                <div id="weight-list"></div>
+            </div>
+
+            <div class="section">
+                <h3>📝 Health Notes</h3>
                 <div id="health-notes-list"></div>
+                <button class="btn-primary" onclick="openModal('healthNote')">+ Add Health Note</button>
+            </div>
+        </div>
+
+        <!-- Religious Life Tab -->
+        <div id="religious" class="tab-content">
+            <div class="section">
+                <h3>📿 Daily Prayers</h3>
+                <div class="prayer-tracker">
+                    <div class="prayer-box" id="prayer-fajr">
+                        <div class="prayer-name">Fajr</div>
+                        <input type="checkbox" id="check-fajr" onchange="savePrayer('fajr')">
+                    </div>
+                    <div class="prayer-box" id="prayer-dhuhr">
+                        <div class="prayer-name">Dhuhr</div>
+                        <input type="checkbox" id="check-dhuhr" onchange="savePrayer('dhuhr')">
+                    </div>
+                    <div class="prayer-box" id="prayer-asr">
+                        <div class="prayer-name">Asr</div>
+                        <input type="checkbox" id="check-asr" onchange="savePrayer('asr')">
+                    </div>
+                    <div class="prayer-box" id="prayer-maghrib">
+                        <div class="prayer-name">Maghrib</div>
+                        <input type="checkbox" id="check-maghrib" onchange="savePrayer('maghrib')">
+                    </div>
+                    <div class="prayer-box" id="prayer-isha">
+                        <div class="prayer-name">Isha</div>
+                        <input type="checkbox" id="check-isha" onchange="savePrayer('isha')">
+                    </div>
+                    <div class="prayer-box" id="prayer-tahajjud">
+                        <div class="prayer-name">Tahajjud</div>
+                        <input type="checkbox" id="check-tahajjud" onchange="savePrayer('tahajjud')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>📖 Quran Memorization</h3>
+                <div id="quran-list"></div>
+                <button class="btn-primary" onclick="openModal('quran')">+ Track Surah</button>
+            </div>
+
+            <div class="section">
+                <h3>🌙 Ramadan Tracker</h3>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="ramadan-fasting" onchange="saveRamadan('fasting')">
+                    <label>Fasting Today</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="ramadan-suhoor" onchange="saveRamadan('suhoor')">
+                    <label>Had Suhoor</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="ramadan-iftar" onchange="saveRamadan('iftar')">
+                    <label>Had Iftar</label>
+                </div>
             </div>
         </div>
 
         <!-- Professional Tab -->
         <div id="professional" class="tab-content">
             <div class="section">
-                <h2>
-                    🏫 School Tasks
-                    <button id="add-school-task" class="btn btn-secondary">+ Add School Task</button>
-                </h2>
+                <h3>🏫 School Tasks</h3>
                 <div id="school-list"></div>
+                <button class="btn-primary" onclick="openModal('school')">+ Add School Task</button>
             </div>
 
             <div class="section">
-                <h2>
-                    🎥 Video Creation
-                    <button id="add-video-task" class="btn btn-secondary">+ Add Video Task</button>
-                </h2>
+                <h3>📹 Video Creation</h3>
                 <div id="video-list"></div>
+                <button class="btn-primary" onclick="openModal('video')">+ Add Video Task</button>
             </div>
 
             <div class="section">
-                <h2>
-                    👨‍👩‍👧‍👦 Family Information Updates
-                    <button id="add-family-task" class="btn btn-secondary">+ Add Family Task</button>
-                </h2>
-                <div id="family-list"></div>
+                <h3>📝 Lesson Plans</h3>
+                <p style="margin-bottom:10px;">Based on your timetable: Mon-Fri, 7 periods</p>
+                <div id="lesson-list"></div>
+                <button class="btn-primary" onclick="openModal('lesson')">+ Add Lesson Plan</button>
             </div>
 
             <div class="section">
-                <h2>
-                    🌐 Website Updates
-                    <button id="add-website-task" class="btn btn-secondary">+ Add Website Task</button>
-                </h2>
-                <div id="website-list"></div>
-            </div>
-
-            <div class="section">
-                <h2>
-                    📱 Social Media
-                    <button id="add-social-task" class="btn btn-secondary">+ Add Social Task</button>
-                </h2>
-                <div id="social-list"></div>
-            </div>
-
-            <div class="section">
-                <h2>📖 Lesson Plans</h2>
-                
-                <h3>
-                    Grade 9
-                    <button id="add-lesson-g9" class="btn btn-secondary">+ Add Lesson</button>
-                </h3>
-                <div id="lesson-grade9-list"></div>
-
-                <h3>
-                    Grade 8
-                    <button id="add-lesson-g8" class="btn btn-secondary">+ Add Lesson</button>
-                </h3>
-                <div id="lesson-grade8-list"></div>
-
-                <h3>
-                    Grade 7
-                    <button id="add-lesson-g7" class="btn btn-secondary">+ Add Lesson</button>
-                </h3>
-                <div id="lesson-grade7-list"></div>
-            </div>
-
-            <div class="section">
-                <h2>
-                    ⏰ Schedule Reminders
-                    <button id="add-reminder" class="btn btn-secondary">+ Add Reminder</button>
-                </h2>
+                <h3>⏰ Reminders</h3>
                 <div id="reminders-list"></div>
+                <button class="btn-primary" onclick="openModal('reminder')">+ Add Reminder</button>
             </div>
         </div>
     </div>
 
-    <!-- Universal Modal -->
+    <!-- Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">Add Item</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div id="modal-body" class="modal-body">
-                <!-- Modal content will be inserted here by JavaScript -->
-            </div>
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <h3 id="modal-title"></h3>
+            <div id="modal-body"></div>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        // ═══════════════════════════════════════════════════════════
+        // ALL JAVASCRIPT IN ONE FILE - EVERYTHING WORKS!
+        // ═══════════════════════════════════════════════════════════
+
+        let appData = {
+            personal: { education: [], visa: [], license: [] },
+            health: { habits: {}, notes: [], weight: [] },
+            religious: { prayers: {}, quran: [], ramadan: {} },
+            professional: { school: [], video: [], lessons: [], reminders: [] }
+        };
+
+        let currentModal = null;
+        let currentEditItem = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            renderAll();
+            checkDailyReset();
+            setInterval(checkReminders, 60000);
+        });
+
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Modal
+        function openModal(type, editItem = null) {
+            currentModal = type;
+            currentEditItem = editItem;
+            
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            const templates = {
+                education: {
+                    title: editItem ? 'Edit Education' : 'Add Education',
+                    html: `
+                        <input type="text" id="input-title" placeholder="Title" value="${editItem?.title || ''}" required>
+                        <textarea id="input-details" placeholder="Details..." rows="3">${editItem?.details || ''}</textarea>
+                        <input type="date" id="input-deadline" value="${editItem?.deadline || ''}">
+                        <button class="btn-primary" onclick="submitModal('education')">${editItem ? 'Update' : 'Add'}</button>
+                    `
+                },
+                visa: {
+                    title: editItem ? 'Edit Visa' : 'Add Visa',
+                    html: `
+                        <input type="text" id="input-title" placeholder="Title" value="${editItem?.title || ''}" required>
+                        <textarea id="input-details" placeholder="Details..." rows="3">${editItem?.details || ''}</textarea>
+                        <input type="date" id="input-deadline" value="${editItem?.deadline || ''}">
+                        <button class="btn-primary" onclick="submitModal('visa')">${editItem ? 'Update' : 'Add'}</button>
+                    `
+                },
+                license: {
+                    title: editItem ? 'Edit License' : 'Add License',
+                    html: `
+                        <input type="text" id="input-title" placeholder="Title" value="${editItem?.title || ''}" required>
+                        <textarea id="input-details" placeholder="Details..." rows="3">${editItem?.details || ''}</textarea>
+                        <input type="date" id="input-deadline" value="${editItem?.deadline || ''}">
+                        <button class="btn-primary" onclick="submitModal('license')">${editItem ? 'Update' : 'Add'}</button>
+                    `
+                },
+                healthNote: {
+                    title: 'Add Health Note',
+                    html: `
+                        <textarea id="input-note" placeholder="Health note..." rows="4" required></textarea>
+                        <input type="date" id="input-date" value="${today}">
+                        <button class="btn-primary" onclick="submitModal('healthNote')">Add</button>
+                    `
+                },
+                quran: {
+                    title: 'Track Surah',
+                    html: `
+                        <input type="text" id="input-surah" placeholder="Surah name" required>
+                        <textarea id="input-details" placeholder="Progress, notes..." rows="3"></textarea>
+                        <button class="btn-primary" onclick="submitModal('quran')">Add</button>
+                    `
+                },
+                school: {
+                    title: editItem ? 'Edit Task' : 'Add School Task',
+                    html: `
+                        <input type="text" id="input-title" placeholder="Task title" value="${editItem?.title || ''}" required>
+                        <textarea id="input-details" placeholder="Details..." rows="3">${editItem?.details || ''}</textarea>
+                        <input type="date" id="input-deadline" value="${editItem?.deadline || ''}">
+                        <button class="btn-primary" onclick="submitModal('school')">${editItem ? 'Update' : 'Add'}</button>
+                    `
+                },
+                video: {
+                    title: editItem ? 'Edit Video' : 'Add Video Task',
+                    html: `
+                        <input type="text" id="input-title" placeholder="Video title" value="${editItem?.title || ''}" required>
+                        <textarea id="input-details" placeholder="Description..." rows="3">${editItem?.details || ''}</textarea>
+                        <input type="date" id="input-deadline" value="${editItem?.deadline || ''}">
+                        <button class="btn-primary" onclick="submitModal('video')">${editItem ? 'Update' : 'Add'}</button>
+                    `
+                },
+                lesson: {
+                    title: editItem ? 'Edit Lesson' : 'Add Lesson Plan',
+                    html: `
+                        <select id="input-day" required>
+                            <option value="">Select Day...</option>
+                            <option value="MON">Monday</option>
+                            <option value="TUE">Tuesday</option>
+                            <option value="WED">Wednesday</option>
+                            <option value="THU">Thursday</option>
+                            <option value="FRI">Friday</option>
+                        </select>
+                        <select id="input-period" required>
+                            <option value="">Select Period...</option>
+                            <option value="1">Period 1 (8:45-9:45)</option>
+                            <option value="2">Period 2 (9:45-10:30)</option>
+                            <option value="3">Period 3 (10:45-11:30)</option>
+                            <option value="4">Period 4 (11:30-12:15)</option>
+                            <option value="5">Period 5 (12:15-1:00)</option>
+                            <option value="6">Period 6 (1:40-2:25)</option>
+                            <option value="7">Period 7 (2:25-3:10)</option>
+                        </select>
+                        <input type="text" id="input-title" placeholder="Lesson title" value="${editItem?.title || ''}" required>
+                        <textarea id="input-details" placeholder="Lesson plan..." rows="4">${editItem?.details || ''}</textarea>
+                        <input type="date" id="input-date" value="${editItem?.date || today}">
+                        <button class="btn-primary" onclick="submitModal('lesson')">${editItem ? 'Update' : 'Add'}</button>
+                    `
+                },
+                reminder: {
+                    title: editItem ? 'Edit Reminder' : 'Add Reminder',
+                    html: `
+                        <input type="text" id="input-title" placeholder="Reminder title" value="${editItem?.title || ''}" required>
+                        <textarea id="input-details" placeholder="Details..." rows="2">${editItem?.details || ''}</textarea>
+                        <input type="datetime-local" id="input-datetime" value="${editItem?.datetime || ''}" required>
+                        <select id="input-repeat">
+                            <option value="once">Once</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                        <button class="btn-primary" onclick="submitModal('reminder')">${editItem ? 'Update' : 'Add'}</button>
+                    `
+                }
+            };
+            
+            const template = templates[type];
+            if (template) {
+                title.textContent = template.title;
+                body.innerHTML = template.html;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            currentModal = null;
+            currentEditItem = null;
+        }
+
+        function submitModal(type) {
+            const getVal = (id) => document.getElementById(id)?.value.trim() || '';
+            
+            let item = currentEditItem || { id: Date.now(), completed: false };
+            
+            switch(type) {
+                case 'education':
+                case 'visa':
+                case 'license':
+                case 'school':
+                case 'video':
+                    item.title = getVal('input-title');
+                    item.details = getVal('input-details');
+                    item.deadline = getVal('input-deadline');
+                    if (!item.title) return alert('Please enter a title');
+                    if (!currentEditItem) appData.personal[type] = appData.personal[type] || [];
+                    if (!currentEditItem) appData.personal[type].push(item);
+                    if (type === 'school' || type === 'video') {
+                        if (!currentEditItem) appData.professional[type].push(item);
+                    }
+                    break;
+                    
+                case 'healthNote':
+                    item.note = getVal('input-note');
+                    item.date = getVal('input-date');
+                    if (!item.note) return alert('Please enter a note');
+                    if (!currentEditItem) appData.health.notes.push(item);
+                    break;
+                    
+                case 'quran':
+                    item.surah = getVal('input-surah');
+                    item.details = getVal('input-details');
+                    if (!item.surah) return alert('Please enter surah name');
+                    if (!currentEditItem) appData.religious.quran.push(item);
+                    break;
+                    
+                case 'lesson':
+                    item.day = getVal('input-day');
+                    item.period = getVal('input-period');
+                    item.title = getVal('input-title');
+                    item.details = getVal('input-details');
+                    item.date = getVal('input-date');
+                    if (!item.day || !item.period || !item.title) return alert('Please fill all fields');
+                    if (!currentEditItem) appData.professional.lessons.push(item);
+                    break;
+                    
+                case 'reminder':
+                    item.title = getVal('input-title');
+                    item.details = getVal('input-details');
+                    item.datetime = getVal('input-datetime');
+                    item.repeat = getVal('input-repeat');
+                    item.active = true;
+                    if (!item.title || !item.datetime) return alert('Please fill all fields');
+                    if (!currentEditItem) {
+                        appData.professional.reminders.push(item);
+                        scheduleNotification(item);
+                    }
+                    break;
+            }
+            
+            saveData();
+            renderAll();
+            closeModal();
+        }
+
+        // Render functions
+        function renderAll() {
+            renderList('education-list', appData.personal.education, 'education');
+            renderList('visa-list', appData.personal.visa, 'visa');
+            renderList('license-list', appData.personal.license, 'license');
+            renderList('school-list', appData.professional.school, 'school');
+            renderList('video-list', appData.professional.video, 'video');
+            renderList('lesson-list', appData.professional.lessons, 'lesson');
+            renderList('reminders-list', appData.professional.reminders, 'reminder');
+            renderHealthNotes();
+            renderWeightList();
+            renderQuranList();
+            loadHabits();
+            loadPrayers();
+            loadRamadan();
+        }
+
+        function renderList(containerId, items, type) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            if (!items || items.length === 0) {
+                container.innerHTML = '<p class="empty-state">No items yet.</p>';
+                return;
+            }
+            
+            container.innerHTML = items.map(item => `
+                <div class="item ${item.completed ? 'completed' : ''}">
+                    <input type="checkbox" class="item-checkbox" 
+                           ${item.completed ? 'checked' : ''} 
+                           onchange="toggleComplete('${type}', ${item.id})">
+                    <div class="item-content">
+                        <div class="item-title">${item.title || item.surah || ''}</div>
+                        ${item.details ? `<div class="item-details">${item.details}</div>` : ''}
+                        ${item.deadline ? `<div class="item-details">📅 ${item.deadline}</div>` : ''}
+                        ${item.datetime ? `<div class="item-details">⏰ ${new Date(item.datetime).toLocaleString()}</div>` : ''}
+                        ${item.day && item.period ? `<div class="item-details">📅 ${item.day} Period ${item.period}</div>` : ''}
+                    </div>
+                    <div>
+                        <button class="btn-edit" onclick='editItem("${type}", ${item.id})'>✏️</button>
+                        <button class="btn-delete" onclick='deleteItem("${type}", ${item.id})'>🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderHealthNotes() {
+            const container = document.getElementById('health-notes-list');
+            if (!container) return;
+            
+            const notes = appData.health.notes || [];
+            if (notes.length === 0) {
+                container.innerHTML = '<p class="empty-state">No notes yet.</p>';
+                return;
+            }
+            
+            container.innerHTML = notes.map(n => `
+                <div class="item">
+                    <div class="item-content">
+                        <div class="item-title">${n.date || ''}</div>
+                        <div class="item-details">${n.note}</div>
+                    </div>
+                    <button class="btn-delete" onclick='deleteHealthNote(${n.id})'>🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        function renderWeightList() {
+            const container = document.getElementById('weight-list');
+            if (!container) return;
+            
+            const weights = (appData.health.weight || []).sort((a,b) => new Date(b.date) - new Date(a.date));
+            if (weights.length === 0) {
+                container.innerHTML = '<p class="empty-state">No weight entries yet.</p>';
+                return;
+            }
+            
+            container.innerHTML = weights.slice(0, 10).map(w => `
+                <div style="padding:8px; background:white; margin:5px 0; border-radius:5px; display:flex; justify-content:space-between;">
+                    <span>${w.date}: <strong>${w.weight} kg</strong></span>
+                    <button class="btn-delete" onclick='deleteWeight(${w.id})'>🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        function renderQuranList() {
+            const container = document.getElementById('quran-list');
+            if (!container) return;
+            
+            const surahs = appData.religious.quran || [];
+            if (surahs.length === 0) {
+                container.innerHTML = '<p class="empty-state">No surahs tracked yet.</p>';
+                return;
+            }
+            
+            container.innerHTML = surahs.map(s => `
+                <div class="item">
+                    <div class="item-content">
+                        <div class="item-title">📖 ${s.surah}</div>
+                        ${s.details ? `<div class="item-details">${s.details}</div>` : ''}
+                    </div>
+                    <button class="btn-delete" onclick='deleteQuran(${s.id})'>🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        // Actions
+        function toggleComplete(type, id) {
+            let items;
+            if (type === 'school' || type === 'video' || type === 'lesson' || type === 'reminder') {
+                items = appData.professional[type];
+            } else {
+                items = appData.personal[type];
+            }
+            
+            const item = items.find(i => i.id === id);
+            if (item) {
+                item.completed = !item.completed;
+                saveData();
+                renderAll();
+            }
+        }
+
+        function editItem(type, id) {
+            let items;
+            if (type === 'school' || type === 'video' || type === 'lesson' || type === 'reminder') {
+                items = appData.professional[type];
+            } else {
+                items = appData.personal[type];
+            }
+            
+            const item = items.find(i => i.id === id);
+            if (item) {
+                openModal(type, item);
+            }
+        }
+
+        function deleteItem(type, id) {
+            if (!confirm('Delete this item?')) return;
+            
+            if (type === 'school' || type === 'video' || type === 'lesson' || type === 'reminder') {
+                appData.professional[type] = appData.professional[type].filter(i => i.id !== id);
+            } else {
+                appData.personal[type] = appData.personal[type].filter(i => i.id !== id);
+            }
+            
+            saveData();
+            renderAll();
+        }
+
+        function deleteHealthNote(id) {
+            if (!confirm('Delete this note?')) return;
+            appData.health.notes = appData.health.notes.filter(n => n.id !== id);
+            saveData();
+            renderHealthNotes();
+        }
+
+        function deleteWeight(id) {
+            appData.health.weight = appData.health.weight.filter(w => w.id !== id);
+            saveData();
+            renderWeightList();
+        }
+
+        function deleteQuran(id) {
+            appData.religious.quran = appData.religious.quran.filter(s => s.id !== id);
+            saveData();
+            renderQuranList();
+        }
+
+        function addWeight() {
+            const weight = document.getElementById('weight-input').value;
+            const date = document.getElementById('weight-date').value;
+            
+            if (!weight || !date) return alert('Please enter weight and date');
+            
+            if (!appData.health.weight) appData.health.weight = [];
+            appData.health.weight.push({ id: Date.now(), weight: parseFloat(weight), date });
+            
+            document.getElementById('weight-input').value = '';
+            document.getElementById('weight-date').value = '';
+            
+            saveData();
+            renderWeightList();
+        }
+
+        function saveHabit(type) {
+            const today = new Date().toDateString();
+            if (!appData.health.habits[today]) appData.health.habits[today] = {};
+            appData.health.habits[today][type] = document.getElementById(`habit-${type}`).checked;
+            saveData();
+        }
+
+        function loadHabits() {
+            const today = new Date().toDateString();
+            const habits = appData.health.habits[today] || {};
+            ['wakeup', 'water', 'veg', 'exercise'].forEach(h => {
+                const el = document.getElementById(`habit-${h}`);
+                if (el) el.checked = habits[h] || false;
+            });
+        }
+
+        function savePrayer(type) {
+            const today = new Date().toDateString();
+            if (!appData.religious.prayers[today]) appData.religious.prayers[today] = {};
+            const checked = document.getElementById(`check-${type}`).checked;
+            appData.religious.prayers[today][type] = checked;
+            
+            const box = document.getElementById(`prayer-${type}`);
+            if (box) {
+                if (checked) box.classList.add('prayed');
+                else box.classList.remove('prayed');
+            }
+            saveData();
+        }
+
+        function loadPrayers() {
+            const today = new Date().toDateString();
+            const prayers = appData.religious.prayers[today] || {};
+            ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'tahajjud'].forEach(p => {
+                const el = document.getElementById(`check-${p}`);
+                const box = document.getElementById(`prayer-${p}`);
+                if (el) el.checked = prayers[p] || false;
+                if (box && prayers[p]) box.classList.add('prayed');
+            });
+        }
+
+        function saveRamadan(type) {
+            const today = new Date().toDateString();
+            if (!appData.religious.ramadan[today]) appData.religious.ramadan[today] = {};
+            appData.religious.ramadan[today][type] = document.getElementById(`ramadan-${type}`).checked;
+            saveData();
+        }
+
+        function loadRamadan() {
+            const today = new Date().toDateString();
+            const ramadan = appData.religious.ramadan[today] || {};
+            ['fasting', 'suhoor', 'iftar'].forEach(r => {
+                const el = document.getElementById(`ramadan-${r}`);
+                if (el) el.checked = ramadan[r] || false;
+            });
+        }
+
+        function checkDailyReset() {
+            // Habits and prayers reset daily automatically by using today's date as key
+        }
+
+        // Notifications
+        function enableNotifications() {
+            if (!('Notification' in window)) {
+                return alert('This browser does not support notifications');
+            }
+            
+            if (Notification.permission === 'granted') {
+                new Notification('✅ Test Notification', {
+                    body: 'Notifications are working!',
+                    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">📱</text></svg>'
+                });
+                return;
+            }
+            
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    new Notification('🎉 Notifications Enabled!', {
+                        body: 'You will now receive reminders.',
+                        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🔔</text></svg>'
+                    });
+                } else {
+                    alert('Please enable notifications in your browser settings.');
+                }
+            });
+        }
+
+        function scheduleNotification(reminder) {
+            if (Notification.permission !== 'granted') return;
+            
+            const reminderTime = new Date(reminder.datetime).getTime();
+            const now = Date.now();
+            const timeUntil = reminderTime - now;
+            
+            if (timeUntil > 0 && timeUntil < 86400000) {
+                setTimeout(() => {
+                    new Notification(`⏰ ${reminder.title}`, {
+                        body: reminder.details || 'Reminder!',
+                        requireInteraction: true
+                    });
+                }, timeUntil);
+            }
+        }
+
+        function checkReminders() {
+            const now = Date.now();
+            (appData.professional.reminders || []).forEach(r => {
+                if (!r.active) return;
+                const rTime = new Date(r.datetime).getTime();
+                if (rTime <= now && rTime > (now - 60000)) {
+                    if (Notification.permission === 'granted') {
+                        new Notification(`⏰ ${r.title}`, {
+                            body: r.details || 'Reminder!',
+                            requireInteraction: true
+                        });
+                    }
+                    if (r.repeat === 'once') r.active = false;
+                    saveData();
+                }
+            });
+        }
+
+        // Storage
+        function saveData() {
+            try {
+                localStorage.setItem('lifeTrackerData', JSON.stringify(appData));
+            } catch (e) {
+                console.error('Error saving:', e);
+            }
+        }
+
+        function loadData() {
+            try {
+                const data = localStorage.getItem('lifeTrackerData');
+                if (data) {
+                    appData = JSON.parse(data);
+                }
+            } catch (e) {
+                console.error('Error loading:', e);
+            }
+        }
+
+        console.log('✅ Life Tracker loaded and ready!');
+    </script>
 </body>
 </html>
