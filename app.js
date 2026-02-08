@@ -6,7 +6,7 @@
 // -------- Configuration --------
 const GOOGLE_CONFIG = {
     CLIENT_ID: '31374902699-vd8icu45ha7uden93k8kl8mc6bsbql3l.apps.googleusercontent.com',
-    API_KEY: 'YOUR_API_KEY_HERE', // Replace with your API key from Google Cloud Console
+    API_KEY: 'AIzaSyCQUVzf1r3kvGKZ5VTjKF-7tX6j3C6R0xY', // Replace with your API key from Google Cloud Console
     DISCOVERY_DOCS: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
     SCOPES: 'https://www.googleapis.com/auth/drive.file'
 };
